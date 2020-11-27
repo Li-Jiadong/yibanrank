@@ -1,0 +1,32 @@
+<!-- <scroll-view scroll-x class="bg-gradual-green nav text-center">
+  <view class="cu-item {{0==TabCur?'text-white cur':''}}" bindtap="tabSelect" data-id="0">
+    <text class="cuIcon-discoverfill"></text> Python组
+  </view>
+  <view class="cu-item {{1==TabCur?'text-white cur':''}}" bindtap="tabSelect" data-id="1">
+    <text class="cuIcon-colorlens"></text> 前端组
+  </view>
+  <view class="cu-item {{2==TabCur?'text-white cur':''}}" bindtap="tabSelect" data-id="2">
+    <text class="cuIcon-clothesfill"></text> 皮肤
+  </view>
+</scroll-view> -->
+<view class="cu-bar bg-white solid-bottom margin-top">
+  <view class="action">
+    <text class="cuIcon-title text-orange "></text> 易班积分榜
+  </view>
+  <view class="action">
+    <text class="cuIcon-discoverfill text-blue"></text>Python
+    <text class="cuIcon-colorlens text-orange"></text>前端
+  </view>
+</view>
+<view class="cu-list menu sm-border card-menu margin-top" >
+    <view class="cu-item " wx:for="{{scorelist}}" wx:for-item="item" wx:key>
+      <view class="content">
+        <text class="text-red text-bold">{{item._rank}}.</text>
+        <text class="text-black text-bold">{{item._name}}</text>
+        <text class="{{item._group?'cuIcon-discoverfill text-blue':'cuIcon-colorlens text-orange'}}"></text>
+      </view>
+      <view class="action">
+        <view class="cu-tag round bg-green ">积分：{{item._score}}</view>
+      </view>
+    </view>
+  </view>

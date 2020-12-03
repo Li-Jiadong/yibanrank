@@ -78,24 +78,33 @@ Page({
     }
     return obj
   },
-  onQuery: function() {
-    console.log("hello")
-    const db = wx.cloud.database()
-    db.collection('rank').get({
-      success: res => {
-        this.setData({
-          scorelist: this.scoresort(res.data)
-        })
-        console.log('[数据库] [查询记录] 成功: ', res)
-      },
-      fail: err => {
-        wx.showToast({
-          icon: 'none',
-          title: '查询记录失败'
-        })
-        console.error('[数据库] [查询记录] 失败：', err)
-      }
+  onQuery: async function() {
+    var reslist=[]
+    const db=wx.cloud.database().collection('rank')
+    const num = (await db.count()).total
+    console.log(num)
+    for(var i=0;i*20<num;++i){
+      reslist=reslist.concat((await db.skip(i*20).get()).data)
+      console.log(reslist)
+    }
+    this.setData({
+      scorelist:this.scoresort(reslist)
     })
+    // db.collection('rank').get({
+    //   success: res => {
+    //     this.setData({
+    //       scorelist: this.scoresort(res.data)
+    //     })
+    //     console.log('[数据库] [查询记录] 成功: ', res)
+    //   },
+    //   fail: err => {
+    //     wx.showToast({
+    //       icon: 'none',
+    //       title: '查询记录失败'
+    //     })
+    //     console.error('[数据库] [查询记录] 失败：', err)
+    //   }
+    // })
   },
   tabSelect(e) {
     this.setData({

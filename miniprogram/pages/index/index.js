@@ -51,6 +51,8 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
+    this.onQuery()
+    setTimeout(function(){wx.stopPullDownRefresh()},500)
     
   },
 
@@ -72,6 +74,7 @@ Page({
     obj.sort(function(a,b){return b._score-a._score})
     for(var i=1;i<=obj.length;++i){
       obj[i-1]["_rank"]=i
+      obj[i-1]["_style"]=this.icon(obj[i-1]["_group"])
     }
     return obj
   },
@@ -99,5 +102,11 @@ Page({
       TabCur: e.currentTarget.dataset.id,
       scrollLeft: (e.currentTarget.dataset.id-1)*60
     })
+  },
+  icon:function(obj){
+    if(obj==0)
+      return "cuIcon-discoverfill text-blue"
+    else if(obj==1)
+      return "cuIcon-colorlens text-orange"
   }
 })
